@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071426">
+  <meta name="description" content="A pocket puzzle game where one tap changes everything">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CROSS FLIP">
+  <title>CROSS FLIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23071426'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central' font-family='system-ui'>✕</text></svg>">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="effects.css">
+</head>
+<body>
+  <main id="app" class="app-shell">
+    <div class="ambient ambient-left"></div><div class="ambient ambient-right"></div>
+    <header class="topbar">
+      <button class="icon-button" id="backButton" aria-label="戻る" hidden>←</button>
+      <div class="wordmark">CROSS <span>FLIP</span></div>
+      <button class="icon-button" id="settingsButton" aria-label="設定">⚙</button>
+    </header>
+
+    <section id="homeScreen" class="screen home-screen">
+      <div class="home-intro"><p class="eyebrow">A POCKET PUZZLE</p><h1>CROSS<br><em>FLIP</em></h1><p class="tagline">ひとつの手で、すべてが変わる。</p></div>
+      <div class="progress-orbit"><div class="orbit-center"><small id="homeLevel">LEVEL 1</small><strong id="homeSize">3 × 3</strong><span id="homeStage">STAGE 01</span></div><div class="orbit-dot"></div></div>
+      <div class="home-actions"><button class="primary-button" id="continueButton">CONTINUE <span>→</span></button><button class="outline-button" id="stageButton">STAGE SELECT <span>▦</span></button></div>
+      <div class="home-footer"><span id="homeCleared">0 / 200 CLEARED</span><button class="text-button" id="homeSettings">SETTINGS</button></div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen" hidden>
+      <div class="game-meta"><div><p class="eyebrow">CURRENT PUZZLE</p><h2 id="gameStage">STAGE 01</h2></div><div class="stat-row"><div><span>MOVES</span><strong id="movesValue">00</strong></div><div><span>BEST</span><strong id="bestValue">—</strong></div></div></div>
+      <div class="par-row"><span id="sizeLabel">3 × 3 GRID</span><span>PAR <b id="parValue">—</b></span></div>
+      <div id="board" class="board" aria-label="パズル盤面"></div>
+      <p id="tutorial" class="tutorial" hidden>マスをタップすると、上下左右も反転します。</p>
+      <div class="game-controls"><button class="control-button" id="retryButton">↻ <span>RETRY</span></button><button class="control-button" id="undoButton">↶ <span>UNDO</span></button><button class="control-button hint-button" id="hintButton">✦ <span>HINT</span></button></div>
+    </section>
+
+    <section id="stageScreen" class="screen stage-screen" hidden><div class="section-heading"><div><p class="eyebrow">CHOOSE YOUR PUZZLE</p><h2>STAGE SELECT</h2></div><span id="stageCount">0 / 200</span></div><div id="stageTabs" class="stage-tabs"></div><div id="stageList" class="stage-list"></div></section>
+
+    <section id="settingsScreen" class="screen settings-screen" hidden><div class="section-heading"><div><p class="eyebrow">PERSONALIZE PLAY</p><h2>SETTINGS</h2></div></div><div class="settings-list"><label><span><b>BGM</b><small>Ambient sound</small></span><input id="bgmToggle" type="checkbox"><i></i></label><label><span><b>SE</b><small>Tap feedback</small></span><input id="seToggle" type="checkbox"><i></i></label><label><span><b>HAPTICS</b><small>Touch response</small></span><input id="hapticToggle" type="checkbox"><i></i></label></div><button class="danger-button" id="resetProgress">RESET ALL PROGRESS</button></section>
+
+    <div id="clearModal" class="modal-backdrop" hidden><div class="modal"><div class="clear-kicker" id="clearKicker">PUZZLE COMPLETE</div><h2 id="clearTitle">CLEAR</h2><div class="stars" id="clearStars">★★☆</div><p class="clear-moves"><strong id="clearMoves">08</strong> MOVES <span>BEST <b id="clearBest">06</b></span></p><div class="modal-actions"><button class="primary-button" id="nextButton">NEXT <span>→</span></button><button class="outline-button" id="modalRetry">RETRY</button><button class="text-button" id="modalStages">STAGE SELECT</button></div></div></div>
+    <div id="toast" class="toast" role="status"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
